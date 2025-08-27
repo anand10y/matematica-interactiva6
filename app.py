@@ -99,7 +99,7 @@ with col3:
         st.write("**Grafic funcție și zona integrată:**")
         plt.clf()  # curăță orice figură precedentă
         f_numeric = lambdify(x, expr, modules=['numpy'])
-        xs = np.linspace(a-1, b+1, 300)  # mai puține puncte pentru stabilitate
+        xs = np.linspace(a-1, b+1, 300)
         ys = f_numeric(xs)
         fig, ax = plt.subplots(figsize=(5,3))
         ax.plot(xs, ys, label=str(expr))
@@ -118,7 +118,7 @@ col_prev, col_next = st.columns(2)
 with col_prev:
     if st.button("Înapoi") and current > 0:
         st.session_state.current -= 1
-st.session_state.current = st.session_state.current  # actualizare current
+st.session_state.current = st.session_state.current
 with col_next:
     if st.button("Înainte") and current < num_ex-1:
         st.session_state.current += 1
