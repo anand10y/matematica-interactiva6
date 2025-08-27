@@ -97,20 +97,21 @@ with col2:
 with col3:
     if st.button("Grafic"):
         st.write("**Grafic funcție și zona integrată:**")
+        plt.clf()  # curăță orice figură precedentă
         f_numeric = lambdify(x, expr, modules=['numpy'])
-        xs = np.linspace(a-1, b+1, 500)
+        xs = np.linspace(a-1, b+1, 300)  # mai puține puncte pentru stabilitate
         ys = f_numeric(xs)
-        plt.figure(figsize=(5,3))
-        plt.plot(xs, ys, label=str(expr))
-        plt.fill_between(xs, 0, ys, where=(xs >= a) & (xs <= b), color='orange', alpha=0.5)
-        plt.axvline(a, color='red', linestyle='--')
-        plt.axvline(b, color='red', linestyle='--')
-        plt.xlabel('x')
-        plt.ylabel('f(x)')
-        plt.title(f'∫_{{{a}}}^{{{b}}} {expr} dx')
-        plt.legend()
-        st.pyplot(plt)
-        plt.close()
+        fig, ax = plt.subplots(figsize=(5,3))
+        ax.plot(xs, ys, label=str(expr))
+        ax.fill_between(xs, 0, ys, where=(xs >= a) & (xs <= b), color='orange', alpha=0.5)
+        ax.axvline(a, color='red', linestyle='--')
+        ax.axvline(b, color='red', linestyle='--')
+        ax.set_xlabel('x')
+        ax.set_ylabel('f(x)')
+        ax.set_title(f'∫_{{{a}}}^{{{b}}} {expr} dx')
+        ax.legend()
+        st.pyplot(fig)
+        plt.close(fig)
 
 # ----------------- Butoane Inainte / Înapoi -----------------
 col_prev, col_next = st.columns(2)
